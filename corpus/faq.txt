@@ -1,0 +1,313 @@
+MERIDIAN ACADEMY — LEARNER SUPPORT FAQ
+Document ID: SUP-FAQ-2026-03
+Last updated: 2026-03-01
+Owner: Learner Success Team
+Audience: Prospective learners, enrolled learners, support agents
+
+================================================================================
+SECTION 1: ABOUT MERIDIAN ACADEMY
+================================================================================
+
+Q1.1 What is Meridian Academy?
+Meridian Academy is an online, instructor-led upskilling institution for working
+professionals and career starters in software engineering, data science, and
+cloud infrastructure. We run structured, cohort-based programs with live classes,
+mentor sessions, graded assessments, and placement support. We are not a
+self-paced video library — attendance and assessment completion are tracked and
+are a precondition for placement services.
+
+Q1.2 Where is Meridian Academy located?
+Meridian Academy is a fully remote institution. Our registered office is at
+Level 6, Kestrel Tower, Outer Ring Road, Bengaluru 560103. All classes are
+delivered online over our learning platform. We do not operate physical campuses
+and we do not offer offline classroom batches.
+
+Q1.3 Which programs do you offer?
+We currently offer five programs:
+  - SEF-101  Software Engineering Foundations      (9 months)
+  - FSWD-201 Full-Stack Web Development            (11 months)
+  - DSML-301 Data Science & Machine Learning       (13 months)
+  - DCE-401  DevOps & Cloud Engineering            (8 months)
+  - ASD-501  Advanced Systems Design               (6 months)
+Full syllabi, weekly time commitments, and instructor profiles are in the Course
+Brochure (document MA-BROCHURE-2026-02).
+
+Q1.4 Are Meridian Academy programs accredited or degree-granting?
+No. Meridian Academy is not a university and does not award degrees, diplomas
+recognised by the UGC, or any government-accredited qualification. On completion
+you receive a Meridian Academy Certificate of Completion, which is an industry
+certificate, not an academic degree. Learners who need a recognised degree should
+not enrol expecting one.
+
+Q1.5 What language are classes taught in?
+All live classes, recordings, assessments, and mentor sessions are conducted in
+English. Doubt-resolution sessions are available in English and Hindi.
+
+================================================================================
+SECTION 2: ADMISSIONS AND ENROLMENT
+================================================================================
+
+Q2.1 How do I apply?
+Applications are made through the Meridian Academy website. The process is:
+  Step 1 — Submit the online application form (10 minutes).
+  Step 2 — Take the Meridian Aptitude Test (MAT), a 60-minute online test.
+  Step 3 — For DSML-301, DCE-401, and ASD-501, attend a 30-minute technical
+           screening call with an admissions counsellor.
+  Step 4 — Receive an admission decision within 5 business days of Step 3.
+  Step 5 — Accept the offer and pay the enrolment deposit to reserve a seat.
+
+Q2.2 What is the Meridian Aptitude Test (MAT)?
+The MAT is a 60-minute proctored online test covering quantitative aptitude,
+logical reasoning, and basic programming logic. It is scored out of 100. The
+minimum qualifying score varies by program and is listed in the Eligibility
+Criteria document (MA-ELIG-2026-01). You may retake the MAT once after a
+mandatory 21-day cooling period. A third attempt is not permitted in the same
+calendar year.
+
+Q2.3 Is there an enrolment deposit? Is it refundable?
+Yes. The enrolment deposit is INR 15,000 and is required to reserve a seat in a
+cohort. The deposit is adjusted against your total tuition. It is fully
+refundable if you withdraw before your cohort's first live class. After the
+first live class, the deposit is treated as part of tuition and is governed by
+the Refund Terms document (MA-REFUND-2026-01).
+
+Q2.4 How large are the cohorts?
+Cohorts are capped at 120 learners. Learners are split into mentor groups of at
+most 12 for mentor sessions and project reviews.
+
+Q2.5 How often do new cohorts start?
+SEF-101 and FSWD-201 start monthly. DSML-301 and DCE-401 start every two months.
+ASD-501 starts quarterly (January, April, July, October).
+
+Q2.6 Can I defer my admission to a later cohort?
+Yes, once. Each learner is permitted one deferral, for a maximum of two cohorts
+forward from the originally assigned cohort. A deferral processing fee of
+INR 7,500 applies. Deferral requests must be submitted at least 14 calendar days
+before the original cohort's start date. Requests made inside 14 days are treated
+as a withdrawal and fall under the standard refund schedule.
+
+Q2.7 I missed my cohort start date. What happens?
+If you have not attended any live class and you contact support within 7 calendar
+days of the cohort start, we will attempt to move you to the next available
+cohort at no charge. Beyond 7 days, the standard deferral fee of INR 7,500
+applies and your refund clock has already started.
+
+================================================================================
+SECTION 3: FEES, PAYMENTS, AND FINANCING
+================================================================================
+
+Q3.1 How much do the programs cost?
+Program fees range from INR 1,95,000 to INR 3,40,000 exclusive of GST. Exact
+per-program pricing, including all EMI tenures and discounts, is maintained in
+the structured pricing document (MA-PRICING-2026-03). Support agents must quote
+from that document, never from memory, as prices are revised quarterly.
+
+Q3.2 Is GST included in the advertised price?
+No. All advertised program fees are exclusive of GST. GST is charged at 18% on
+the tuition amount and is added at checkout. On an INR 2,10,000 program, GST of
+INR 37,800 applies, making the payable total INR 2,47,800.
+
+Q3.3 Do you offer EMI or instalment plans?
+Yes. We offer EMI tenures of 6, 9, 12, 18, and 24 months through our partner
+non-banking financial companies, Zenith Capital and Arcline Finance. Tenures of
+6, 9, and 12 months are offered at 0% interest, with Meridian Academy absorbing
+the subvention cost. Tenures of 18 and 24 months carry interest charged by the
+lender at 12.5% and 13.9% per annum respectively. Meridian Academy does not
+receive any part of that interest.
+
+Q3.4 Do I need a credit check for EMI?
+Yes. EMI approval is granted by the partner NBFC, not by Meridian Academy. The
+NBFC runs a credit check and may decline an application. If your EMI application
+is declined by both partners, you may pay upfront, choose a shorter tenure, or
+apply with a co-applicant who has an income record.
+
+Q3.5 Is there a discount for paying upfront?
+Yes. Paying the full tuition upfront before the cohort start date earns a 10%
+discount on the tuition component. The discount does not apply to GST, and does
+not stack with EMI plans.
+
+Q3.6 Do you offer an Income Share Agreement (ISA) or pay-after-placement option?
+No. Meridian Academy discontinued all Income Share Agreement products with effect
+from 1 January 2026. Learners who signed an ISA before that date continue under
+their original contract terms; those contracts are unaffected. No new ISA
+enrolments are accepted, and we do not offer any pay-after-placement scheme.
+
+Q3.7 What scholarships are available?
+Three scholarships are offered:
+  - Merit Scholarship: up to 30% off tuition, based on MAT score of 85 or above.
+  - Women in Tech Scholarship: flat 15% off tuition.
+  - Career Restart Scholarship: flat 20% off tuition, for applicants returning
+    to work after a documented career break of 12 months or longer.
+Scholarships may be combined, but total stacked discount is capped at 35% of
+tuition. Scholarship discounts do not apply to GST or to the enrolment deposit.
+
+Q3.8 Does taking a scholarship affect my placement benefits?
+Yes, in one specific case. Learners receiving a total scholarship discount
+greater than 30% of tuition are not eligible for the Placement Assurance refund
+programme. They still receive full placement support services. See the Placement
+Policy document (MA-PLACE-2026-02) for details.
+
+Q3.9 Can I change my payment plan after enrolling?
+You may switch from EMI to upfront payment at any time by settling the
+outstanding principal with the NBFC directly; the 10% upfront discount does not
+apply retroactively. You may not switch from upfront to EMI after payment.
+
+Q3.10 What happens if I miss an EMI payment?
+The EMI contract is between you and the partner NBFC. Missed payments are subject
+to the NBFC's late fees and are reported to credit bureaus by the NBFC. Meridian
+Academy suspends platform access after 30 days of confirmed non-payment and
+restores it within 48 hours of the NBFC confirming that the account is current.
+
+================================================================================
+SECTION 4: CLASSES, ATTENDANCE, AND ASSESSMENTS
+================================================================================
+
+Q4.1 When are classes held?
+Live classes are held on weekday evenings from 8:00 PM to 10:00 PM IST, and on
+Saturdays from 10:00 AM to 1:00 PM IST. Exact weekly schedules vary by program
+and are published two weeks before cohort start.
+
+Q4.2 Are classes recorded?
+Yes. Every live class is recorded and made available on the platform within 12
+hours. Recordings remain accessible for 12 months after your program end date.
+
+Q4.3 Does watching a recording count towards attendance?
+Partially. Watching a full recording within 7 days of the live session counts as
+0.5 attendance credit. Attending live counts as 1.0 credit. This matters because
+placement eligibility has an attendance threshold — see Q5.2.
+
+Q4.4 What is the weekly time commitment?
+Plan for 15 to 18 hours per week: approximately 7 hours of live class, 4 hours of
+assignments, 3 hours of project work, and 2 hours of mentor or doubt sessions.
+DSML-301 and ASD-501 trend towards the upper end of that range.
+
+Q4.5 What assessments are there?
+Each program has 6 module assessments, 2 or more capstone projects depending on
+the program, and a final technical evaluation. Module assessments are graded
+pass/fail with a 60% pass mark. You get two reattempt opportunities per module
+assessment at no cost.
+
+Q4.6 What happens if I fail a module assessment three times?
+You are moved to Academic Support, which pairs you with a mentor for four weeks
+of remediation at no additional cost. You may then attempt the assessment a
+fourth time. If that attempt fails, you may repeat the module with the next
+cohort at no tuition cost, but your placement timeline shifts accordingly.
+
+Q4.7 Can I pause my program mid-way?
+Yes. A mid-program pause of up to 8 weeks is permitted once per learner for
+documented medical or family emergencies. Submit a pause request through the
+support portal with supporting documentation. Pauses are not granted for work
+commitments or travel. Your refund window does not pause — see the Refund Terms.
+
+================================================================================
+SECTION 5: PLACEMENT AND CAREER SERVICES
+================================================================================
+
+Q5.1 Do you guarantee a job?
+No, not universally. Meridian Academy provides placement support to all learners
+who clear the Placement Readiness Gate. Separately, a conditional refund product
+called Placement Assurance is available only on FSWD-201 and DSML-301, and only
+to learners who meet strict participation conditions. It is a conditional refund
+promise, not a job guarantee. Read the Placement Policy (MA-PLACE-2026-02) in
+full before relying on it.
+
+Q5.2 What is the Placement Readiness Gate?
+The Placement Readiness Gate, or PRG, is the checkpoint that unlocks placement
+services. To clear it you must have at least 85% attendance credit, have passed
+all 6 module assessments, and have submitted and had approved at least 2 capstone
+projects. Learners who do not clear the PRG receive career coaching but are not
+referred to hiring partners.
+
+Q5.3 How long does placement support last?
+Placement support runs for 12 months from the date you clear the PRG. It is not
+12 months from your program end date. Learners who clear the PRG late therefore
+still receive a full 12-month window.
+
+Q5.4 What kind of companies hire from Meridian Academy?
+Our hiring partner network includes product startups, mid-size SaaS companies,
+IT services firms, and a small number of large product companies. A partial
+partner list and historical placement statistics appear in the Placement Policy.
+
+Q5.5 Is placement support available to learners outside India?
+Placement support and hiring partner referrals are available for roles in India
+only. Learners located outside India may enrol and complete the program and
+receive career coaching, résumé review, and interview preparation, but will not
+receive hiring partner referrals and are not eligible for Placement Assurance.
+
+================================================================================
+SECTION 6: REFUNDS, WITHDRAWALS, AND CANCELLATIONS
+================================================================================
+
+Q6.1 What is your refund policy in brief?
+Refunds are tiered by how many days have passed since your cohort's first live
+class: 100% minus an administrative fee within 7 days, 70% from day 8 to day 30,
+40% from day 31 to day 60, and no refund after day 60. The authoritative and
+complete terms, including GST treatment and processing timelines, are in the
+Refund Terms document (MA-REFUND-2026-01). Support agents must quote that
+document, not this summary.
+
+Q6.2 How long does a refund take to reach me?
+Approved refunds are processed within 21 business days of approval to the
+original payment instrument.
+
+Q6.3 I am on an EMI plan and want to withdraw. What happens to my loan?
+Your refund is computed on the tuition as normal, but the refund amount is paid
+first to the partner NBFC to reduce or close your outstanding loan. Any surplus
+after the loan is closed is paid to you. If the refund is smaller than the
+outstanding loan, you remain liable to the NBFC for the balance.
+
+================================================================================
+SECTION 7: TECHNICAL AND ACCOUNT SUPPORT
+================================================================================
+
+Q7.1 What are your support hours?
+Learner support operates 9:00 AM to 9:00 PM IST, Monday to Saturday. We are
+closed on Sundays and on 12 declared public holidays per year.
+
+Q7.2 What is your response time commitment?
+We respond to all support tickets within 24 hours of receipt during operating
+days. Tickets raised on a Saturday evening are answered by Monday evening.
+Billing and refund tickets carry a 48-hour first-response target because they
+require finance team review.
+
+Q7.3 How do I contact support?
+Raise a ticket from the Help section of the learning platform, or email
+support@meridianacademy.example. Phone support is available to enrolled learners
+only, on the number shown in the platform, during support hours.
+
+Q7.4 What are the technical requirements for classes?
+A laptop or desktop with at least 8 GB RAM, a dual-core processor from 2018 or
+later, a stable internet connection of at least 10 Mbps, a working webcam, and a
+headset. DSML-301 learners are provided cloud GPU credits for model training and
+do not need a local GPU. Tablets and phones are not supported for assessments or
+proctored tests.
+
+Q7.5 I cannot access my recordings. What should I do?
+Recording access is suspended automatically if your payment account is in arrears
+by more than 30 days, or if your program end date was more than 12 months ago.
+If neither applies, raise a technical ticket with your cohort ID and the specific
+class date.
+
+================================================================================
+SECTION 8: DATA, PRIVACY, AND CONDUCT
+================================================================================
+
+Q8.1 Is class attendance monitored?
+Yes. Attendance is recorded automatically by the platform based on session join
+and leave timestamps. A learner must be present for at least 75% of a session's
+duration for it to count as attended.
+
+Q8.2 Are proctored assessments recorded?
+Yes. The MAT and the final technical evaluation are proctored with webcam and
+screen recording. Recordings are retained for 180 days and then deleted.
+
+Q8.3 What is the code of conduct?
+Plagiarism in assignments or capstone projects, sharing assessment content, and
+impersonation during proctored tests are treated as serious violations. A first
+confirmed violation results in a written warning and a zero on the affected
+assessment. A second results in termination of enrolment without refund.
+
+Q8.4 Can I share my course material with others?
+No. All course material, recordings, and assessment content are licensed to you
+personally and may not be redistributed, resold, or uploaded elsewhere. Detected
+redistribution results in immediate termination of enrolment without refund.

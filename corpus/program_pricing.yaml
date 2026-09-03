@@ -1,0 +1,206 @@
+# Meridian Academy — Program Pricing Master
+# Document ID: MA-PRICING-2026-03
+# Effective: 2026-03-01
+# Owner: Revenue Operations
+# Authority: This file is the single source of truth for all quoted prices.
+#            Support agents and counsellors must quote from this file only.
+#            Prices are revised quarterly; the next revision is 2026-06-01.
+
+meta:
+  document_id: MA-PRICING-2026-03
+  version: "3.1"
+  effective_date: "2026-03-01"
+  next_revision_date: "2026-06-01"
+  currency: INR
+  all_prices_exclusive_of_gst: true
+  gst_rate_percent: 18
+  enrolment_deposit_inr: 15000
+  enrolment_deposit_adjusted_against_tuition: true
+
+programs:
+
+  - code: SEF-101
+    name: Software Engineering Foundations
+    duration_months: 9
+    level: beginner
+    list_tuition_inr: 210000
+    gst_inr: 37800
+    total_payable_upfront_no_discount_inr: 247800
+    upfront_discounted_tuition_inr: 189000   # 10% upfront discount
+    upfront_discounted_total_inr: 223020     # incl. 18% GST on 189000
+    placement_services_included: true
+    placement_assurance_eligible: false
+    notes: >
+      Placement support services are included, but the Placement Assurance
+      conditional refund product is not offered on SEF-101.
+
+  - code: FSWD-201
+    name: Full-Stack Web Development
+    duration_months: 11
+    level: intermediate
+    list_tuition_inr: 285000
+    gst_inr: 51300
+    total_payable_upfront_no_discount_inr: 336300
+    upfront_discounted_tuition_inr: 256500
+    upfront_discounted_total_inr: 302670
+    placement_services_included: true
+    placement_assurance_eligible: true
+    placement_assurance_minimum_ctc_inr: 700000
+
+  - code: DSML-301
+    name: Data Science and Machine Learning
+    duration_months: 13
+    level: advanced
+    list_tuition_inr: 340000
+    gst_inr: 61200
+    total_payable_upfront_no_discount_inr: 401200
+    upfront_discounted_tuition_inr: 306000
+    upfront_discounted_total_inr: 361080
+    placement_services_included: true
+    placement_assurance_eligible: true
+    placement_assurance_minimum_ctc_inr: 700000
+    includes_cloud_gpu_credits_usd: 400
+
+  - code: DCE-401
+    name: DevOps and Cloud Engineering
+    duration_months: 8
+    level: intermediate
+    list_tuition_inr: 245000
+    gst_inr: 44100
+    total_payable_upfront_no_discount_inr: 289100
+    upfront_discounted_tuition_inr: 220500
+    upfront_discounted_total_inr: 260190
+    placement_services_included: true
+    placement_assurance_eligible: false
+    includes_cloud_lab_credits_usd: 250
+
+  - code: ASD-501
+    name: Advanced Systems Design
+    duration_months: 6
+    level: senior
+    list_tuition_inr: 195000
+    gst_inr: 35100
+    total_payable_upfront_no_discount_inr: 230100
+    upfront_discounted_tuition_inr: 175500
+    upfront_discounted_total_inr: 207090
+    placement_services_included: false
+    placement_assurance_eligible: false
+    notes: >
+      ASD-501 is a senior specialisation. No placement services of any kind are
+      included and no placement-linked refund product is offered.
+
+discounts:
+  upfront_payment:
+    percent: 10
+    applies_to: tuition_only
+    excludes: [gst, enrolment_deposit]
+    stackable_with_emi: false
+    stackable_with_scholarships: true
+    condition: Full tuition must be received before the Cohort Start Date.
+
+  scholarships:
+    - id: MERIT
+      name: Merit Scholarship
+      max_percent: 30
+      basis: MAT score of 85 or above
+      applies_to: tuition_only
+    - id: WIT
+      name: Women in Tech Scholarship
+      percent: 15
+      basis: Self-declared, verified at enrolment
+      applies_to: tuition_only
+    - id: RESTART
+      name: Career Restart Scholarship
+      percent: 20
+      basis: Documented career break of 12 months or longer
+      applies_to: tuition_only
+  scholarship_stacking:
+    allowed: true
+    max_total_percent: 35
+    note: >
+      Total stacked scholarship discount is capped at 35% of tuition. A learner
+      whose total scholarship discount exceeds 30% of tuition becomes ineligible
+      for the Placement Assurance refund product, while retaining full placement
+      support services.
+
+financing:
+  partners:
+    - name: Zenith Capital
+      type: NBFC
+      requires_indian_bank_account: true
+      requires_credit_check: true
+    - name: Arcline Finance
+      type: NBFC
+      requires_indian_bank_account: true
+      requires_credit_check: true
+
+  emi_tenures:
+    - months: 6
+      annual_interest_percent: 0
+      interest_borne_by: Meridian Academy
+    - months: 9
+      annual_interest_percent: 0
+      interest_borne_by: Meridian Academy
+    - months: 12
+      annual_interest_percent: 0
+      interest_borne_by: Meridian Academy
+    - months: 18
+      annual_interest_percent: 12.5
+      interest_borne_by: learner
+    - months: 24
+      annual_interest_percent: 13.9
+      interest_borne_by: learner
+
+  emi_examples:
+    - program_code: SEF-101
+      tenure_months: 12
+      monthly_instalment_inr: 20650      # 247800 / 12, zero interest
+      total_paid_inr: 247800
+    - program_code: FSWD-201
+      tenure_months: 12
+      monthly_instalment_inr: 28025
+      total_paid_inr: 336300
+    - program_code: DSML-301
+      tenure_months: 24
+      monthly_instalment_inr: 19215
+      total_paid_inr: 461160
+      note: Includes lender interest at 13.9% per annum, charged by the NBFC.
+
+  income_share_agreement:
+    offered: false
+    discontinued_on: "2026-01-01"
+    note: >
+      Income Share Agreements were withdrawn from sale on 1 January 2026.
+      Contracts signed before that date remain valid on their original terms.
+      No pay-after-placement product is offered.
+
+fees_and_charges:
+  deferral_processing_fee_inr: 7500
+  refund_administrative_fee_inr: 5000
+  mat_retake_fee_inr: 0
+  certificate_reissue_fee_inr: 1500
+  add_on_interview_intensive_inr: 12000
+  add_on_one_to_one_career_coaching_inr: 18000
+  add_on_refundable: false
+
+payment_methods:
+  accepted:
+    - UPI
+    - Net banking
+    - Domestic debit and credit cards
+    - International credit cards
+    - Bank transfer (NEFT/RTGS/SWIFT)
+    - EMI via Zenith Capital
+    - EMI via Arcline Finance
+  not_accepted:
+    - Cash
+    - Cheque
+    - Cryptocurrency
+    - Third-party wallets other than UPI
+
+refund_reference:
+  authoritative_document: MA-REFUND-2026-01
+  summary_only_do_not_quote: >
+    Tiered by days since Cohort Start Date: 100% less INR 5,000 within 7 days,
+    70% on days 8 to 30, 40% on days 31 to 60, nil from day 61. Quote the
+    authoritative refund document, not this summary.

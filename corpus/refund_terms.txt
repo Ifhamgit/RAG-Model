@@ -1,0 +1,231 @@
+MERIDIAN ACADEMY — REFUND AND CANCELLATION TERMS
+Document ID: MA-REFUND-2026-01
+Version: 4.2
+Effective date: 2026-01-15
+Supersedes: MA-REFUND-2025-03 (version 3.9)
+Owner: Finance and Compliance
+Status: AUTHORITATIVE. Where this document conflicts with any summary, brochure,
+        FAQ answer, or verbal statement by a counsellor, this document governs.
+
+================================================================================
+1. SCOPE AND DEFINITIONS
+================================================================================
+
+1.1 This document sets out the complete refund, withdrawal, and cancellation
+terms for all Meridian Academy programs: SEF-101, FSWD-201, DSML-301, DCE-401,
+and ASD-501.
+
+1.2 Definitions used throughout this document:
+
+  "Cohort Start Date" means the calendar date of the first scheduled live class
+  of the cohort to which the learner is assigned, regardless of whether the
+  learner attended that class.
+
+  "Refund Day Count" means the number of calendar days elapsed since the Cohort
+  Start Date, where the Cohort Start Date itself is Day 1.
+
+  "Tuition" means the program fee exclusive of Goods and Services Tax, and after
+  the application of any scholarship or upfront-payment discount actually
+  granted.
+
+  "Enrolment Deposit" means the INR 15,000 seat-reservation payment.
+
+  "Withdrawal Request" means a written request to withdraw, submitted through
+  the support portal or by email to refunds@meridianacademy.example from the
+  learner's registered email address.
+
+  "Business Day" means Monday to Friday excluding declared public holidays at
+  our Bengaluru registered office.
+
+1.3 The Refund Day Count runs on calendar days and does not pause for approved
+mid-program pauses, medical leave, festival breaks, or platform downtime. This
+is a deliberate policy choice and is not subject to agent discretion.
+
+================================================================================
+2. THE REFUND SCHEDULE
+================================================================================
+
+2.1 The refund payable on an approved Withdrawal Request is determined solely by
+the Refund Day Count on the date the Withdrawal Request is received. The
+following schedule applies to all programs:
+
+  ---------------------------------------------------------------------------
+  Refund Day Count       Tuition refunded      Deductions
+  ---------------------------------------------------------------------------
+  Day 1 to Day 7         100%                  Less INR 5,000 administrative
+  (Cooling-off Period)                         fee. GST fully refunded.
+  ---------------------------------------------------------------------------
+  Day 8 to Day 30        70%                   Administrative fee waived.
+                                               GST fully refunded.
+  ---------------------------------------------------------------------------
+  Day 31 to Day 60       40%                   Administrative fee waived.
+                                               GST NOT refunded.
+  ---------------------------------------------------------------------------
+  Day 61 onwards         0%                    No refund of any component.
+  ---------------------------------------------------------------------------
+
+2.2 Worked example. A learner enrols in SEF-101 at a tuition of INR 2,10,000
+plus GST of INR 37,800, paid upfront without discount, total INR 2,47,800. The
+learner submits a Withdrawal Request on Day 22.
+
+  Refund Day Count 22 falls in the Day 8 to Day 30 band.
+  Tuition refund   = 70% of INR 2,10,000 = INR 1,47,000
+  GST refund       = full INR 37,800
+  Administrative fee = INR 0 (waived in this band)
+  Total refund payable = INR 1,84,800
+
+2.3 Worked example, later withdrawal. The same learner withdrawing on Day 45:
+
+  Refund Day Count 45 falls in the Day 31 to Day 60 band.
+  Tuition refund   = 40% of INR 2,10,000 = INR 84,000
+  GST refund       = INR 0 (not refundable in this band)
+  Total refund payable = INR 84,000
+
+2.4 The INR 5,000 administrative fee in the cooling-off band covers payment
+gateway charges, onboarding, and issued materials. It is deducted from the
+tuition refund, not from the GST refund.
+
+================================================================================
+3. PRE-START CANCELLATION
+================================================================================
+
+3.1 A learner who submits a Withdrawal Request before the Cohort Start Date
+receives a 100% refund of all amounts paid, including the Enrolment Deposit and
+GST, with no administrative fee deducted. This is a full and unconditional
+refund.
+
+3.2 Section 3.1 applies regardless of how far in advance the payment was made
+and regardless of whether onboarding material has been issued.
+
+3.3 If Meridian Academy cancels or postpones a cohort by more than 21 calendar
+days, affected learners may elect either a full unconditional refund under
+Section 3.1 or a transfer to any future cohort with no deferral fee.
+
+================================================================================
+4. GST TREATMENT
+================================================================================
+
+4.1 GST is charged at 18% on the tuition component at the time of payment.
+
+4.2 GST is refunded in full for Withdrawal Requests with a Refund Day Count of
+30 or less, and for all pre-start cancellations under Section 3.
+
+4.3 GST is not refundable for Withdrawal Requests with a Refund Day Count of 31
+or more. This is because the tax has been remitted to the authorities for the
+relevant filing period and cannot be reclaimed by Meridian Academy.
+
+4.4 GST is never refunded on the INR 5,000 administrative fee.
+
+================================================================================
+5. REFUNDS WHERE FINANCING IS INVOLVED
+================================================================================
+
+5.1 Where tuition was financed through a partner NBFC (Zenith Capital or
+Arcline Finance), the refund is not paid to the learner in the first instance.
+Meridian Academy remits the approved refund amount directly to the NBFC to be
+applied against the outstanding loan principal.
+
+5.2 If the refund amount exceeds the outstanding loan balance, the NBFC closes
+the loan and the surplus is remitted to the learner's registered bank account.
+
+5.3 If the refund amount is less than the outstanding loan balance, the loan is
+reduced but not closed. The learner remains contractually liable to the NBFC for
+the remaining balance, together with any interest and fees accrued under the loan
+agreement. Meridian Academy has no authority to waive amounts owed to an NBFC.
+
+5.4 Interest already paid to the NBFC on tenures of 18 or 24 months is not
+refundable by Meridian Academy under any circumstances, as Meridian Academy does
+not receive that interest.
+
+5.5 Subvention costs absorbed by Meridian Academy on 0% interest tenures (6, 9,
+and 12 months) are treated as a cost of sale and are not deducted from the
+learner's refund.
+
+================================================================================
+6. SCHOLARSHIPS AND DISCOUNTS IN REFUND CALCULATIONS
+================================================================================
+
+6.1 Refunds are computed on Tuition as defined in Section 1.2, that is, on the
+discounted amount actually payable, not on the list price.
+
+6.2 Worked example. A learner on DSML-301 with list tuition INR 3,40,000
+receives a 20% Career Restart Scholarship, making Tuition INR 2,72,000. A
+withdrawal on Day 12 yields a tuition refund of 70% of INR 2,72,000 =
+INR 1,90,400, plus full GST refund on the GST actually paid.
+
+6.3 A learner who paid upfront and received the 10% upfront discount has their
+refund computed on the post-discount amount. The discount is not clawed back and
+is not added back for refund purposes.
+
+================================================================================
+7. NON-REFUNDABLE ITEMS
+================================================================================
+
+7.1 The following are never refundable, in any band, including during the
+cooling-off period:
+
+  a) The INR 7,500 deferral processing fee.
+  b) Fees for optional add-on services purchased separately, including the
+     Interview Intensive workshop and one-to-one career coaching packages.
+  c) The cost of physical materials already dispatched, where the learner does
+     not return them in resaleable condition within 14 days.
+  d) Payment gateway charges on international card transactions, where these
+     exceed INR 5,000; in that case the actual charge is deducted instead of the
+     standard administrative fee.
+
+7.2 The Enrolment Deposit is refundable only under Section 3 (pre-start
+cancellation). Once the Cohort Start Date has passed, the deposit is treated as
+tuition already paid and is subject to the Section 2 schedule.
+
+================================================================================
+8. TERMINATION FOR CONDUCT
+================================================================================
+
+8.1 Where enrolment is terminated by Meridian Academy for a code of conduct
+violation, including plagiarism, impersonation during proctored assessment, or
+redistribution of course material, no refund of any kind is payable, irrespective
+of the Refund Day Count.
+
+8.2 A learner may appeal a conduct termination within 14 calendar days to the
+Academic Integrity Committee. A successful appeal restores enrolment; it does not
+convert the case into a refund.
+
+================================================================================
+9. PROCESS AND TIMELINES
+================================================================================
+
+9.1 Withdrawal Requests must be submitted in writing from the learner's
+registered email address. Verbal requests to counsellors, messages in class chat,
+and social media messages do not constitute a Withdrawal Request and do not stop
+the Refund Day Count.
+
+9.2 The date of receipt is the date the request arrives in our systems, in IST.
+A request received at 23:50 IST on Day 30 is treated as Day 30. A request
+received at 00:10 IST the following day is treated as Day 31.
+
+9.3 Meridian Academy acknowledges a Withdrawal Request within 2 Business Days
+and issues a refund decision with a computed amount within 7 Business Days.
+
+9.4 Approved refunds are disbursed within 21 Business Days of the decision, to
+the original payment instrument. Where the original instrument is closed or
+invalid, disbursement is made by bank transfer to a verified account and may take
+an additional 10 Business Days.
+
+9.5 Platform access, including recordings and community channels, is revoked on
+the date the refund decision is issued, not on the date funds are received.
+
+================================================================================
+10. DISPUTES
+================================================================================
+
+10.1 A learner who disputes a refund computation may escalate to
+grievance@meridianacademy.example within 30 calendar days of the refund decision.
+Escalations are reviewed by the Finance and Compliance lead and answered within
+10 Business Days.
+
+10.2 Unresolved disputes are subject to arbitration seated in Bengaluru under the
+Arbitration and Conciliation Act, 1996, before a sole arbitrator appointed by
+Meridian Academy and agreed by the learner.
+
+10.3 Nothing in this document limits a learner's statutory rights under
+applicable consumer protection law.

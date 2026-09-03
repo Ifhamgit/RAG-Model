@@ -1,0 +1,25 @@
+# --- secrets -----------------------------------------------------------------
+# Never commit the real key. .env.example is the tracked template.
+.env
+.env.local
+
+# --- generated artefacts -----------------------------------------------------
+# Rebuildable from corpus/ with `python main.py --ingest`.
+index/
+logs/
+eval/results/
+
+# --- python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# --- editors / os ------------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

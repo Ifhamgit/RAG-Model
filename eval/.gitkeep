@@ -1,0 +1,6 @@
+# Evaluation suite lives here (DESIGN.md §f), added in Step 12:
+#   test_cases.json  12 cases across 8 categories, incl. 2 abstention cases
+#   run_eval.py      5 metrics: recall@k, correctness, faithfulness,
+#                    context precision, abstention accuracy
+#   results/         timestamped run output incl. every judge justification
+#                    (gitignored)

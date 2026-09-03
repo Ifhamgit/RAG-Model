@@ -1,0 +1,8 @@
+# Normalise text to LF in the repository so diffs are stable across platforms.
+* text=auto eol=lf
+
+# Corpus PDFs are binary. Without this, core.autocrlf=true on Windows rewrites
+# byte sequences inside them and pypdf can no longer parse the result.
+*.pdf binary
+*.npy binary
+*.db  binary

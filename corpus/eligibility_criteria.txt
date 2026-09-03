@@ -1,0 +1,225 @@
+MERIDIAN ACADEMY — ADMISSION ELIGIBILITY CRITERIA
+Document ID: MA-ELIG-2026-01
+Version: 2.6
+Effective for cohorts starting on or after: 2026-02-01
+Owner: Admissions Office
+Review cycle: Half-yearly
+
+================================================================================
+1. HOW TO READ THIS DOCUMENT
+================================================================================
+
+1.1 Every applicant must satisfy the General Eligibility Requirements in
+Section 2 and the Program-Specific Requirements in Section 3 for the program
+applied to. Failing either results in rejection.
+
+1.2 Where an applicant does not meet a program's requirements, admissions
+counsellors are authorised to recommend an alternative program for which the
+applicant does qualify. Counsellors are not authorised to waive requirements.
+Waivers are granted only under Section 5.
+
+================================================================================
+2. GENERAL ELIGIBILITY REQUIREMENTS (ALL PROGRAMS)
+================================================================================
+
+2.1 Age. The applicant must be at least 18 years of age on the Cohort Start Date.
+There is no upper age limit.
+
+2.2 Education floor. The applicant must have completed higher secondary
+education (Class 12 or equivalent). A university degree is not required for every
+program — see Section 3.
+
+2.3 English proficiency. All instruction is in English. Applicants must be able
+to follow technical instruction in English. This is assessed during the
+application and, where applicable, the screening call. No formal test score such
+as IELTS or TOEFL is required.
+
+2.4 Meridian Aptitude Test. Every applicant must attempt the Meridian Aptitude
+Test (MAT) and meet the minimum score for the program applied to. MAT scores are
+valid for 12 months from the test date and may be reused across applications
+within that period.
+
+2.5 Hardware and connectivity. The applicant must have access to a laptop or
+desktop meeting the minimum specification: 8 GB RAM, dual-core processor from
+2018 or later, 10 Mbps internet, webcam, and headset. Mobile-only applicants are
+not eligible.
+
+2.6 Time availability. The applicant must be able to commit 15 to 18 hours per
+week, including attendance at live classes held on weekday evenings and Saturday
+mornings, IST.
+
+2.7 Identity and document verification. The applicant must provide a
+government-issued photo identity document and, where a program requires work
+experience or a degree, supporting documentation. Documents must be uploaded
+before the Cohort Start Date. Enrolment is provisional until verification
+completes.
+
+================================================================================
+3. PROGRAM-SPECIFIC REQUIREMENTS
+================================================================================
+
+--------------------------------------------------------------------------------
+3.1 SEF-101 — SOFTWARE ENGINEERING FOUNDATIONS
+--------------------------------------------------------------------------------
+Minimum MAT score:            60 out of 100
+Degree requirement:           None. Class 12 or equivalent is sufficient.
+Work experience requirement:  None. Open to students and career changers.
+Prior coding requirement:     None. This is a true beginner program.
+Screening call:               Not required.
+Additional notes:             SEF-101 is the only Meridian program open to
+                              applicants with no degree and no prior coding
+                              exposure. Applicants who fail to meet FSWD-201 or
+                              DSML-301 requirements are commonly redirected here.
+
+--------------------------------------------------------------------------------
+3.2 FSWD-201 — FULL-STACK WEB DEVELOPMENT
+--------------------------------------------------------------------------------
+Minimum MAT score:            68 out of 100
+Degree requirement:           A completed bachelor's degree in any discipline,
+                              OR current enrolment in the final year of a
+                              bachelor's degree.
+Work experience requirement:  None.
+Prior coding requirement:     At least 6 months of demonstrable coding exposure.
+                              Acceptable evidence includes a public code
+                              repository, a completed online course with a
+                              verifiable certificate, prior coursework in
+                              programming, or completion of SEF-101.
+Screening call:               Not required.
+Additional notes:             Final-year students must submit proof of degree
+                              completion within 6 months of their Cohort Start
+                              Date. Failure to do so does not affect enrolment
+                              but does block Placement Assurance eligibility.
+
+--------------------------------------------------------------------------------
+3.3 DSML-301 — DATA SCIENCE AND MACHINE LEARNING
+--------------------------------------------------------------------------------
+Minimum MAT score:            75 out of 100
+Degree requirement:           A completed bachelor's degree. The degree must
+                              include at least one course in mathematics,
+                              statistics, or quantitative methods, evidenced by a
+                              transcript. Degrees in engineering, mathematics,
+                              statistics, economics, physics, computer science,
+                              and commerce normally satisfy this automatically.
+Work experience requirement:  At least 12 months of full-time professional work
+                              experience in any field. Internships do not count.
+Prior coding requirement:     Working familiarity with at least one programming
+                              language. Python is strongly preferred.
+Screening call:               Required. 30-minute technical screening covering
+                              quantitative reasoning and basic programming.
+Additional notes:             Applicants without the mathematics prerequisite may
+                              satisfy it by completing the free Meridian
+                              Quantitative Bridge module and scoring 70 or above
+                              on its final assessment.
+
+--------------------------------------------------------------------------------
+3.4 DCE-401 — DEVOPS AND CLOUD ENGINEERING
+--------------------------------------------------------------------------------
+Minimum MAT score:            70 out of 100
+Degree requirement:           A completed bachelor's degree in any discipline,
+                              OR a completed three-year diploma in engineering
+                              or computer applications.
+Work experience requirement:  At least 12 months of professional experience in
+                              an information technology role. Acceptable roles
+                              include software development, IT support, system
+                              administration, network operations, quality
+                              assurance, and technical operations.
+Prior coding requirement:     Comfort with the Linux command line and basic
+                              scripting in Bash or Python.
+Screening call:               Required. 30-minute technical screening covering
+                              operating system fundamentals and networking
+                              basics.
+Additional notes:             Non-IT professionals with strong Linux skills may
+                              request an exception under Section 5.
+
+--------------------------------------------------------------------------------
+3.5 ASD-501 — ADVANCED SYSTEMS DESIGN
+--------------------------------------------------------------------------------
+Minimum MAT score:            Not applicable. The MAT is waived for ASD-501.
+Degree requirement:           None, provided the work experience requirement is
+                              satisfied.
+Work experience requirement:  At least 48 months (4 years) of professional
+                              software engineering experience, of which at least
+                              24 months must involve building or operating
+                              production backend systems.
+Prior coding requirement:     Professional fluency in at least one backend
+                              language.
+Screening call:               Required, and it is substantive. A 45-minute
+                              technical interview with a senior instructor
+                              covering a past system the applicant has built.
+                              This call is a genuine filter; approximately 40% of
+                              ASD-501 applicants are declined at this stage.
+Additional notes:             ASD-501 is a senior specialisation, not a career
+                              switching program. It does not include placement
+                              services and is not eligible for Placement
+                              Assurance. Applicants seeking placement support
+                              should not enrol in ASD-501.
+
+================================================================================
+4. SUMMARY MATRIX
+================================================================================
+
+  Program    MAT   Degree required        Work exp   Screening   Placement svcs
+  --------------------------------------------------------------------------
+  SEF-101     60   No                     None       No          Yes
+  FSWD-201    68   Yes (or final year)    None       No          Yes
+  DSML-301    75   Yes (with maths)       12 months  Yes         Yes
+  DCE-401     70   Yes or 3-yr diploma    12 months  Yes         Yes
+  ASD-501     n/a  No                     48 months  Yes         No
+
+================================================================================
+5. WAIVERS AND EXCEPTIONS
+================================================================================
+
+5.1 A waiver of any single program-specific requirement may be granted by the
+Admissions Committee. Waivers of two or more requirements for the same applicant
+are not granted.
+
+5.2 The MAT minimum score may be reduced by at most 5 points, and only where the
+applicant demonstrates exceptional evidence in another dimension, such as a
+substantial open-source contribution history or a relevant professional
+certification.
+
+5.3 The work experience requirement for DSML-301 and DCE-401 may be waived for
+applicants holding a master's degree in a quantitative or computing discipline.
+
+5.4 The ASD-501 experience requirement is not waivable under any circumstances.
+
+5.5 Waiver requests are submitted by the admissions counsellor on the applicant's
+behalf and are decided within 5 business days. The decision is final and is not
+subject to appeal.
+
+================================================================================
+6. RE-APPLICATION AFTER REJECTION
+================================================================================
+
+6.1 A rejected applicant may re-apply to the same program after 90 calendar days,
+or immediately to a different program for which they qualify.
+
+6.2 A rejected applicant may retake the MAT once after the mandatory 21-day
+cooling period. A third MAT attempt in the same calendar year is not permitted.
+
+6.3 Rejection at the ASD-501 screening call does not bar an application to
+DCE-401 or DSML-301, and the ASD-501 screening outcome is not shared with those
+admissions tracks.
+
+================================================================================
+7. INTERNATIONAL APPLICANTS
+================================================================================
+
+7.1 Applicants located outside India are eligible to enrol in all five programs
+and are assessed against the same criteria in Sections 2 and 3.
+
+7.2 Foreign qualifications are accepted. Equivalence is assessed by the
+Admissions Office; no third-party evaluation report is required.
+
+7.3 International applicants must be able to attend live classes scheduled in
+IST. No alternative time-zone batches are offered.
+
+7.4 International applicants receive career coaching but do not receive hiring
+partner referrals and are not eligible for Placement Assurance, because the
+hiring partner network covers roles in India only.
+
+7.5 International payments are accepted in INR by international card or bank
+transfer. EMI financing through Zenith Capital and Arcline Finance requires an
+Indian bank account and Indian credit history, and is therefore unavailable to
+most international applicants.
