@@ -371,6 +371,22 @@ poison both arms at once. The call is cached by question hash, has a short timeo
 open** — on any error, expansion is skipped and retrieval proceeds with the raw query. It is an
 optimisation, never a dependency.
 
+**Two things expansion must not touch, both found by measurement.**
+
+*It must not feed miss detection.* The sparse miss-condition asks whether the user's words appear
+in the corpus. Expansion's entire job is to inject corpus vocabulary, so testing the *expanded*
+query against the corpus is circular — it always matches, and miss detection silently stops working
+the moment expansion is enabled. Measured: *"Does Meridian offer a cybersecurity program?"*
+hard-misses on the raw query and does not on the expanded one. §c.4's conditions therefore read the
+original question only.
+
+*It must not run on the hard-miss path.* Expansion is itself an LLM call, measured at ~3.8 s. Since
+miss detection reads the raw query, the hard-miss verdict is already exact after the dense search
+and the term probe — before any expansion. Passing the expansion into the retriever as a *callable*
+rather than a value lets it be skipped entirely when the verdict is already known. Without this,
+short-circuiting spent an LLM call to avoid an LLM call, inverting the whole point of §d.3:
+measured, the hard-miss path fell from **4,272 ms to 105 ms** and from one billed call to none.
+
 ### c.6 Authority-aware ordering
 
 **The rule, stated so it can be implemented.** "Overlapping topic" is not something the code can

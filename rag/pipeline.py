@@ -21,7 +21,7 @@ from .chunker import chunk_documents, summarise
 from .config import Settings
 from .embeddings import Embedder, LsaEmbedder, get_embedder
 from .loaders import load_corpus
-from .models import Chunk
+from .models import AnswerResult, Chunk
 from .store import Store
 
 log = logging.getLogger(__name__)
@@ -184,3 +184,112 @@ def ingest(
         elapsed_s=time.perf_counter() - t0,
         distribution=summarise(chunks),
     )
+
+
+# ===========================================================================
+# query path
+# ===========================================================================
+
+
+class QueryEngine:
+    """Holds the expensive objects so a request does not rebuild them.
+
+    The embedder, the index and the HTTP client are all constructed once — at
+    CLI start or, for the API, at application startup. Doing this per request
+    would put ~700 ms of model load into every query.
+    """
+
+    def __init__(self, settings: Settings, require_llm: bool = True):
+        from .answerer import QueryExpander
+        from .llm import LLMClient, LLMError
+        from .retriever import Retriever
+        from .tracing import Tracer
+
+        self.s = settings
+        settings.ensure_dirs()
+
+        self.store = Store(settings.db_path, settings.vectors_path)
+        self.embedder = get_embedder(settings)
+        self.retriever = Retriever(self.store, self.embedder, settings)
+        self.tracer = Tracer(self.store, settings)
+
+        self.client: Optional[LLMClient] = None
+        try:
+            self.client = LLMClient(settings)
+        except LLMError:
+            # Retrieval-only use is legitimate and must not require a key.
+            if require_llm:
+                raise
+            log.warning("no LLM client; retrieval-only mode")
+        self.expander = QueryExpander(self.client, settings)
+
+    def close(self) -> None:
+        self.store.close()
+
+    def __enter__(self) -> "QueryEngine":
+        return self
+
+    def __exit__(self, *exc: object) -> None:
+        self.close()
+
+    def ask(self, question: str) -> "AnswerResult":
+        """Expand -> retrieve -> answer -> verify -> trace.
+
+        Exactly one trace row is written per call, on every path including
+        failure: a failure must never be a gap in the log (§e.1).
+        """
+        from .answerer import answer as generate
+
+        t0 = time.perf_counter()
+        trace_id = self.tracer.new_trace_id()
+        retrieval = None
+        result = None
+        prompt_meta: dict = {}
+        expand_ms = 0.0
+
+        try:
+            # Passed as a callable, not a value: the retriever decides whether
+            # the expansion is worth an LLM call at all. On a hard miss it is
+            # not — see Retriever.retrieve.
+            retrieval = self.retriever.retrieve(
+                question, expand_fn=lambda: self.expander.expand(question)
+            )
+            expand_ms = retrieval.latency_expand_ms
+            result, prompt_meta = generate(question, retrieval, self.client, self.s)
+
+            result.trace_id = trace_id
+            result.latency_expand_ms = expand_ms
+            result.embedding_backend = self.embedder.name
+            result.latency_ms = (time.perf_counter() - t0) * 1000
+            return result
+
+        except Exception as exc:
+            stage = getattr(exc, "stage", "pipeline")
+            elapsed = (time.perf_counter() - t0) * 1000
+            self.tracer.write(
+                self.tracer.build_row(
+                    trace_id, question, retrieval, result, prompt_meta, elapsed,
+                    latency_expand_ms=expand_ms,
+                    embedding_backend=self.embedder.name,
+                    error=f"{type(exc).__name__}: {exc}",
+                    error_stage=stage,
+                )
+            )
+            raise
+
+        finally:
+            if result is not None:
+                self.tracer.write(
+                    self.tracer.build_row(
+                        trace_id, question, retrieval, result, prompt_meta,
+                        result.latency_ms,
+                        latency_expand_ms=expand_ms,
+                        embedding_backend=self.embedder.name,
+                    )
+                )
+
+
+def ask(question: str, settings: Settings) -> "AnswerResult":
+    """One-shot convenience wrapper. The CLI and API hold a QueryEngine instead."""
+    with QueryEngine(settings) as engine:
+        return engine.ask(question)

@@ -18,7 +18,7 @@ import dataclasses
 import logging
 import re
 import time
-from typing import Optional
+from typing import Callable, Optional
 
 from .config import Settings
 from .embeddings import Embedder
@@ -55,6 +55,7 @@ class RetrievalResult:
 
     latency_embed_ms: float = 0.0
     latency_retrieve_ms: float = 0.0
+    latency_expand_ms: float = 0.0
 
     def signals(self) -> dict[str, object]:
         return {
@@ -154,15 +155,51 @@ class Retriever:
         fused.sort(key=lambda r: -r.rrf_score)
 
     # ------------------------------------------------------------- entrypoint
-    def retrieve(self, query: str, expanded_query: Optional[str] = None) -> RetrievalResult:
+    def retrieve(
+        self,
+        query: str,
+        expanded_query: Optional[str] = None,
+        expand_fn: Optional[Callable[[], tuple[str, float]]] = None,
+    ) -> RetrievalResult:
+        """Retrieve for `query`.
+
+        `expand_fn` is preferred over `expanded_query`: passing the expansion as
+        a *callable* lets it be skipped entirely on the hard-miss path. That
+        matters because expansion is an LLM call — measured at ~3.8 s — and
+        spending it to decide we will make no LLM call inverts the whole point
+        of short-circuiting (§d.3). Miss detection reads the raw query, so the
+        decision never needed the expansion in the first place.
+        """
         t0 = time.perf_counter()
         qvec = self.embedder.embed_query(query)  # ORIGINAL query, never the expansion
         t_embed = (time.perf_counter() - t0) * 1000
 
         t1 = time.perf_counter()
         n = self.s.candidates_per_arm
-
         dense = self.store.dense_search(qvec, n)
+
+        # Both miss conditions that do not require the sparse search are known
+        # now, and "no content term of the question is in the corpus" already
+        # implies sparse_miss. So the hard-miss verdict is exact here, not a
+        # guess — which is what makes skipping the expansion safe.
+        top_cosine_early = dense[0][1] if dense else None
+        # Computed from the ORIGINAL query, never the expansion. The expansion's
+        # entire job is to inject corpus vocabulary, so testing it against the
+        # corpus is circular: it will always match, and miss detection silently
+        # stops working the moment expansion is enabled. Measured: "Does
+        # Meridian offer a cybersecurity program?" hard-misses on the raw query
+        # and does not on the expanded one. The question that matters is whether
+        # the *user's own* words appear in the corpus.
+        content_terms = self._content_terms(query)
+        matched = self.store.matching_terms(content_terms)
+
+        dense_miss_early = top_cosine_early is None or top_cosine_early < self.s.miss_dense_cosine
+        certain_miss = dense_miss_early and not matched
+
+        t_expand = 0.0
+        if expand_fn is not None and not certain_miss:
+            expanded_query, t_expand = expand_fn()
+
         # §c.5: the expansion feeds the sparse arm only. The dense arm sees the
         # user's own words, so an expansion that drifts off-target cannot poison
         # both arms at once.
@@ -183,14 +220,11 @@ class Retriever:
         # fused score measures agreement between arms, not absolute relevance —
         # a threshold on it cannot tell a good match from the best of a bad lot.
         # Detection therefore reads each arm's RAW signal, before fusion.
-        top_cosine = dense[0][1] if dense else None
+        top_cosine = top_cosine_early
         gap = (dense[0][1] - dense[1][1]) if len(dense) > 1 else None
         top_bm25 = sparse[0][1] if sparse else None
 
-        content_terms = self._content_terms(sparse_query)
-        matched = self.store.matching_terms(content_terms)
-
-        dense_miss = top_cosine is None or top_cosine < self.s.miss_dense_cosine
+        dense_miss = dense_miss_early
         sparse_miss = (not matched) or (top_bm25 is None) or (top_bm25 < self.s.miss_bm25_floor)
 
         return RetrievalResult(
@@ -210,5 +244,7 @@ class Retriever:
             content_terms=content_terms,
             matched_terms=matched,
             latency_embed_ms=t_embed,
-            latency_retrieve_ms=(time.perf_counter() - t1) * 1000,
+            # Expansion is billed separately; it is an LLM call, not retrieval.
+            latency_retrieve_ms=(time.perf_counter() - t1) * 1000 - t_expand,
+            latency_expand_ms=t_expand,
         )
