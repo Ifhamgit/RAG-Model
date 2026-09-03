@@ -151,9 +151,22 @@ class Settings(BaseSettings):
     # inspects each arm's raw signal before fusion, and a hard miss requires
     # BOTH conditions to hold.
     #
-    # PROVISIONAL values, calibrated in Step 13 from logged `top_score` on the
-    # §f.1 abstention cases versus the answerable ones.
-    miss_dense_cosine: float = 0.55
+    # CALIBRATED from the §f.1 eval set (`python eval/run_eval.py --no-judge`),
+    # not guessed. Measured top dense cosine:
+    #     answerable  n=10  min 0.6463  median 0.7464  max 0.8608
+    #     abstention  n=2   min 0.6404  median 0.6577  max 0.6749
+    # The clusters OVERLAP, so no dense floor separates them alone — bge-small
+    # compresses cosines into a narrow band. This is exactly why the rule is an
+    # AND. The precise signal is the sparse one ("not a single content word of
+    # the question appears anywhere in the corpus", which is near-certain rather
+    # than a threshold); the dense floor only has to avoid vetoing it.
+    #
+    # 0.70 sits above the one abstention case that also trips sparse_miss
+    # (cybersecurity, 0.675). Two answerable cases sit just above it (0.706,
+    # 0.708) — a thin margin on the dense signal alone, but harmless, because
+    # both match content terms and so can never satisfy the AND. The case at
+    # 0.6463 falls below the floor and is likewise protected by its term matches.
+    miss_dense_cosine: float = 0.70
     miss_bm25_floor: float = 1.0
 
     # §c.6. Multiplier on the fused score of a chunk that explicitly defers to a

@@ -1,0 +1,129 @@
+{
+  "_comment": [
+    "Evaluation cases for DESIGN.md §f.1. Twelve cases across eight categories,",
+    "chosen to cover the corpus and, deliberately, its hard edges: cross-document",
+    "synthesis, an authority conflict, arithmetic, a negative answer, and two",
+    "out-of-corpus questions that MUST be refused.",
+    "",
+    "expected_facts are atomic claims the answer must assert. They are graded by an",
+    "LLM judge rather than string-matched, because '40%' may legitimately appear as",
+    "'forty percent' or '0.4 of tuition'.",
+    "",
+    "Known limits are stated in DESIGN.md §f.3 and should be read before trusting",
+    "any number computed from this file. The most important: these questions were",
+    "written by the system's author, from the corpus, so their vocabulary is",
+    "unconsciously closer to the documents than a real support ticket would be."
+  ],
+  "cases": [
+    {
+      "id": "elig-mat-dsml",
+      "category": "single-doc factual",
+      "question": "What is the minimum MAT score for the data science program?",
+      "expected_source": { "file": "eligibility_criteria.txt", "section_contains": "DSML-301" },
+      "expected_facts": ["75", "DSML-301"],
+      "expect_abstain": false,
+      "notes": "Asks by common name ('data science'), not by code, so the dense arm has to bridge to DSML-301."
+    },
+    {
+      "id": "refund-timeline",
+      "category": "single-doc factual",
+      "question": "How long does a refund take to reach me once it is approved?",
+      "expected_source": { "file": "refund_terms.txt", "section_contains": "PROCESS" },
+      "expected_facts": ["21 business days"],
+      "expect_abstain": false,
+      "notes": "The FAQ also states this; either source is defensible, but the authoritative one should rank."
+    },
+    {
+      "id": "weekly-commitment",
+      "category": "single-doc factual",
+      "question": "How many hours a week will I need to put in?",
+      "expected_source": { "file": "faq.txt", "section_contains": "CLASSES" },
+      "expected_facts": ["15 to 18 hours"],
+      "expect_abstain": false,
+      "notes": "Colloquial phrasing with no corpus vocabulary in it at all."
+    },
+    {
+      "id": "deferral-fee",
+      "category": "single-doc factual",
+      "question": "Can I postpone my start to a later batch, and does it cost anything?",
+      "expected_source": { "file": "faq.txt", "section_contains": "ADMISSIONS" },
+      "expected_facts": ["7,500", "one deferral", "14 calendar days"],
+      "expect_abstain": false,
+      "notes": "'postpone'/'batch' vs the corpus's 'defer'/'cohort' — a vocabulary gap by design."
+    },
+    {
+      "id": "pricing-dsml",
+      "category": "single-doc factual",
+      "question": "What does the DSML-301 program cost and how long is it?",
+      "expected_source": { "file": "program_pricing.yaml", "section_contains": "DSML-301" },
+      "expected_facts": ["3,40,000", "13 months", "exclusive of GST"],
+      "expect_abstain": false,
+      "notes": "Tests the YAML-to-prose rendering: the figure must be retrievable and quotable."
+    },
+    {
+      "id": "scholarship-assurance",
+      "category": "cross-document synthesis",
+      "question": "I have a 35% scholarship on the full-stack program. Am I still eligible for Placement Assurance?",
+      "expected_source": { "file": "placement_policy.pdf", "section_contains": "5.3" },
+      "expected_facts": ["not eligible", "more than 30%", "still receives placement support"],
+      "expect_abstain": false,
+      "notes": "Must join the pricing YAML's 35% stacking cap to placement policy 5.3(e)'s 30% cutoff. Answering from either document alone gives the wrong answer."
+    },
+    {
+      "id": "refund-day-45",
+      "category": "authority conflict",
+      "question": "If someone withdraws on day 45, do they get their GST back?",
+      "expected_source": { "file": "refund_terms.txt", "section_contains": "REFUND SCHEDULE" },
+      "expected_facts": ["40%", "GST is not refunded"],
+      "expect_abstain": false,
+      "notes": "The FAQ's Q6.1 summary omits GST treatment entirely. Answering from it is subtly wrong — this is the case §c.6 exists for."
+    },
+    {
+      "id": "refund-arithmetic",
+      "category": "numeric",
+      "question": "I paid the full SEF-101 fee upfront with no discount and withdrew on day 22. How much do I get back?",
+      "expected_source": { "file": "refund_terms.txt", "section_contains": "REFUND SCHEDULE" },
+      "expected_facts": ["1,84,800", "70%", "GST refunded in full"],
+      "expect_abstain": false,
+      "notes": "The worked example in 2.2 gives every input. Prompt rule 4 permits the arithmetic only because it is all stated."
+    },
+    {
+      "id": "asd-no-placement",
+      "category": "negative / exclusion",
+      "question": "Does the Advanced Systems Design course include placement support?",
+      "expected_source": { "file": "placement_policy.pdf", "section_contains": "2." },
+      "expected_facts": ["no", "ASD-501", "no placement services"],
+      "expect_abstain": false,
+      "notes": "Models are biased toward 'yes'. A confident, correct 'no' is the thing being tested."
+    },
+    {
+      "id": "ooc-cybersecurity",
+      "category": "out-of-corpus abstention",
+      "question": "Does Meridian offer a cybersecurity program?",
+      "expected_source": null,
+      "expected_facts": [],
+      "expect_abstain": true,
+      "expect_hard_miss": true,
+      "notes": "Five programs exist and none is cybersecurity. 'cybersecurity' appears nowhere in the corpus, so retrieval hard-misses and short-circuits before any LLM call — the cheapest and safest way to refuse."
+    },
+    {
+      "id": "ooc-2026-placement",
+      "category": "out-of-corpus abstention (adjacent)",
+      "question": "What is the placement rate for the 2026 cohort?",
+      "expected_source": null,
+      "expected_facts": [],
+      "expect_abstain": true,
+      "expect_hard_miss": false,
+      "notes": "The harder abstention, and deliberately NOT a retrieval hard-miss: every content word ('placement', 'rate', 'cohort') is genuinely in the corpus, and §7 has real placement figures — for the twelve months ending 31 December 2025. This is §d.3's 'weak retrieval' path: retrieval must return the relevant-looking chunks, and the model must notice the year does not match rather than substituting the number it has. Catching this at retrieval would require guessing intent from a date, which §c.6 deliberately refuses to do."
+    },
+    {
+      "id": "plagiarism-refund",
+      "category": "conditional / multi-clause",
+      "question": "If I get expelled for plagiarism, can I still get a refund?",
+      "expected_source": { "file": "refund_terms.txt", "section_contains": "CONDUCT" },
+      "expected_facts": ["no refund", "regardless of the Refund Day Count"],
+      "expect_abstain": false,
+      "notes": "§8.1 overrides the normal schedule. An answer that quotes the day-count tiers here is wrong."
+    }
+  ]
+}

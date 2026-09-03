@@ -309,6 +309,29 @@ class Store:
         tokens = [t for t in tokens if t.upper() not in {"AND", "OR", "NOT", "NEAR"}]
         return " OR ".join(f'"{t}"' for t in tokens)
 
+    def matching_terms(self, terms: Iterable[str]) -> list[str]:
+        """Which of these terms appear anywhere in the index.
+
+        The §c.4 sparse miss-condition needs to distinguish "BM25 ranked
+        something" from "BM25 actually matched a meaningful word". Because both
+        arms always return their top-N, a returned row proves nothing on its
+        own — this does. One cheap FTS probe per term; ~0.1 ms each at this size.
+        """
+        found: list[str] = []
+        for term in terms:
+            expr = self.to_fts_query(term)
+            if not expr:
+                continue
+            try:
+                row = self.conn.execute(
+                    "SELECT rowid FROM chunks_fts WHERE chunks_fts MATCH ? LIMIT 1", (expr,)
+                ).fetchone()
+            except sqlite3.OperationalError:
+                continue
+            if row is not None:
+                found.append(term)
+        return found
+
     def bm25_search(self, query: str, k: int) -> list[tuple[str, float]]:
         """BM25 over the chunk text.
 
