@@ -83,9 +83,14 @@
       "category": "numeric",
       "question": "I paid the full SEF-101 fee upfront with no discount and withdrew on day 22. How much do I get back?",
       "expected_source": { "file": "refund_terms.txt", "section_contains": "REFUND SCHEDULE" },
-      "expected_facts": ["1,84,800", "70%", "GST refunded in full"],
+      "expected_facts": [
+        "1,84,800",
+        "70%",
+        "GST refunded in full",
+        "does not apply the 10% upfront discount"
+      ],
       "expect_abstain": false,
-      "notes": "The worked example in 2.2 gives every input. Prompt rule 4 permits the arithmetic only because it is all stated."
+      "notes": "The worked example in §2.2 gives every input. Prompt rule 4 permits the arithmetic only because it is all stated. The last fact is a NEGATIVE one and is the real test: the question says 'with no discount', so the 10% upfront discount must not be applied. A model that helpfully applies it produces a confident, precise, wrong number — exactly the failure mode this corpus punishes."
     },
     {
       "id": "asd-no-placement",
@@ -121,9 +126,13 @@
       "category": "conditional / multi-clause",
       "question": "If I get expelled for plagiarism, can I still get a refund?",
       "expected_source": { "file": "refund_terms.txt", "section_contains": "CONDUCT" },
-      "expected_facts": ["no refund", "regardless of the Refund Day Count"],
+      "expected_facts": [
+        "no refund",
+        "regardless of the Refund Day Count",
+        "a first confirmed violation is a written warning, not termination"
+      ],
       "expect_abstain": false,
-      "notes": "§8.1 overrides the normal schedule. An answer that quotes the day-count tiers here is wrong."
+      "notes": "Two documents must combine. Refund Terms §8.1 overrides the normal schedule: termination for conduct means no refund at any Day Count, so an answer quoting the day-count tiers is wrong. But FAQ Q8.3 carries the nuance that a FIRST confirmed violation is a written warning and a zero on the affected assessment — only a second results in termination. An answer that says 'plagiarism means no refund' is technically responsive and materially misleading, which is precisely what the prompt's CONDITIONS AND EXCEPTIONS section forbids."
     }
   ]
 }
