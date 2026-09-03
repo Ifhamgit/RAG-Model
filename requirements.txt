@@ -36,4 +36,4 @@ numpy~=2.5
 fastembed~=0.8
 
 # --- corpus generation (tools/build_corpus_pdfs.py only, not imported at runtime)
-reportlab~=4.4
+reportlab>=4.4,<6

@@ -61,7 +61,14 @@ def render(text: str, out_path: pathlib.Path, title: str) -> None:
         elif line.startswith("| "):
             flow.append(Paragraph(line[2:].replace(" ", "&nbsp;"), MONO))
         else:
-            flow.append(Paragraph(line.replace("&", "&amp;"), BODY))
+            # Escape stray ampersands for reportlab's mini-XML parser, but put
+            # back the one entity the source text uses intentionally. Without
+            # the second replace, "&nbsp;" becomes "&amp;nbsp;" and renders as
+            # the literal string "&nbsp;" in the PDF — which then lands in the
+            # extracted text and pollutes the very header lines that carry the
+            # document ID.
+            safe = line.replace("&", "&amp;").replace("&amp;nbsp;", "&nbsp;")
+            flow.append(Paragraph(safe, BODY))
     doc.build(flow)
     print(f"wrote {out_path.relative_to(CORPUS.parent)}  ({out_path.stat().st_size:,} bytes)")
 
