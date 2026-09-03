@@ -72,11 +72,11 @@
     {
       "id": "refund-day-45",
       "category": "authority conflict",
-      "question": "If someone withdraws on day 45, do they get their GST back?",
+      "question": "If someone withdraws on day 45, what refund do they get, and do they get their GST back?",
       "expected_source": { "file": "refund_terms.txt", "section_contains": "REFUND SCHEDULE" },
       "expected_facts": ["40%", "GST is not refunded"],
       "expect_abstain": false,
-      "notes": "The FAQ's Q6.1 summary omits GST treatment entirely. Answering from it is subtly wrong — this is the case §c.6 exists for."
+      "notes": "The FAQ's Q6.1 summary omits GST treatment entirely. Answering from it is subtly wrong — this is the case §c.6 exists for. The question asks for BOTH the tuition percentage and the GST treatment, deliberately: an earlier phrasing asked only 'do they get their GST back?' and then required '40%' as a fact, which the system was right to omit and the case was wrong to demand. A test must ask for what it grades."
     },
     {
       "id": "refund-arithmetic",
