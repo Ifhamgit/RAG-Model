@@ -259,6 +259,22 @@ class LLMClient:
         choice = resp.choices[0]
         text = choice.message.content or ""
         usage = getattr(resp, "usage", None)
+        finish = getattr(choice, "finish_reason", "") or ""
+
+        # On a reasoning model, reasoning tokens are drawn from the SAME
+        # max_tokens budget as the visible answer. If the budget runs out during
+        # reasoning the request still returns 200, with finish_reason "length"
+        # and an EMPTY content string. Left undetected this is indistinguishable
+        # from a malformed response, and the trace then blames the output schema
+        # for what is really a token-budget problem — which is exactly how one
+        # eval failure sent me looking in the wrong place for a while.
+        if finish == "length" and not text.strip():
+            raise LLMError(
+                f"response truncated before any text was produced "
+                f"({getattr(usage, 'completion_tokens', '?')} tokens consumed, all reasoning). "
+                f"Raise LLM_MAX_TOKENS or lower LLM_EFFORT.",
+                stage="llm_truncated",
+            )
 
         return LLMResponse(
             text=text,
@@ -268,5 +284,5 @@ class LLMClient:
             model=getattr(resp, "model", self.model),
             provider=self.provider,
             latency_ms=(time.perf_counter() - t0) * 1000,
-            finish_reason=getattr(choice, "finish_reason", "") or "",
+            finish_reason=finish,
         )
