@@ -232,6 +232,9 @@ Three implementations:
 1. FastEmbedEmbedder (PRIMARY) — fastembed with BAAI/bge-small-en-v1.5, 384 dims, ONNX on CPU.
    bge models want an instruction prefix on QUERIES only ("Represent this sentence for searching
    relevant passages: "), not on documents — implement that asymmetry and comment why.
+   Pass cache_dir=<INDEX_DIR>/models so the one-time model download lives with the index and
+   survives a temp-folder clean; fastembed's default cache is under %TEMP%. (The model is
+   already cached on this machine from setup, so the first ingest will not re-download.)
 2. LsaEmbedder (FALLBACK) — pure NumPy TF-IDF then truncated SVD. dim = min(128, n_chunks - 1)
    per §c.1. It is corpus-fitted, so it must expose fit(corpus_texts) and persist its learned
    state (vocabulary, idf, components) next to the index so embed_query works in a later process.
