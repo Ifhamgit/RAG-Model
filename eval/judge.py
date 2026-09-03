@@ -87,7 +87,20 @@ processing takes 21 business days."
 Judge only against the context shown. Do not use outside knowledge, and do not
 reward a claim for being true in the real world. An answer that correctly
 declines to answer ("the sources do not cover this") has no factual claims to
-check and is trivially faithful — return an empty list."""
+check and is trivially faithful — return an empty list.
+
+Extract only claims ABOUT THE SUBJECT MATTER. Statements about the answering
+process itself are not factual claims and must be skipped entirely, not
+classified as not_in_context:
+
+  "the sources do not state a placement rate for 2026"   skip (about the sources)
+  "a human would need to check the 2026 outcomes report" skip (a recommendation)
+  "I could not determine the exact figure"               skip (about the answer)
+
+This matters because the assistant is instructed to say what it could not
+determine and what a human should check. Counting that instruction-following as
+an ungrounded claim would penalise the answer for behaving correctly, and would
+make careful abstentions score worse than confident ones."""
 
 FAITHFULNESS_SCHEMA: dict[str, Any] = {
     "type": "object",
