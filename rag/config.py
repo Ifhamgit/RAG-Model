@@ -111,7 +111,13 @@ class Settings(BaseSettings):
     # task over supplied context, so "medium" is the cost/quality sweet spot.
     # Raise if the §f.2 faithfulness metric drops.
     llm_effort: Effort = "medium"
-    llm_max_tokens: int = 2048
+    # 4096, not 2048. On a reasoning model the reasoning tokens come out of the
+    # SAME budget as the visible answer, so a tight cap can be fully consumed
+    # before any text is emitted — the request returns 200 with empty content.
+    # Measured: one eval case burned exactly 2048 output tokens over 162 s and
+    # produced nothing. Answers are 2-6 sentences, so this is headroom for
+    # reasoning, not a target length.
+    llm_max_tokens: int = 4096
     llm_timeout_s: float = 60.0
     llm_max_retries: int = 2
 
@@ -174,7 +180,24 @@ class Settings(BaseSettings):
     authority_penalty: float = 0.8
 
     # -------------------------------------------------------------- flags ---
-    enable_query_expansion: bool = True
+    # OFF by default, against DESIGN.md §c.5's original argument, because the
+    # eval measured it and it lost on every metric at once:
+    #
+    #                    expansion ON   expansion OFF
+    #   recall@5              80%           100%
+    #   answer correctness    89%            92%
+    #   context precision     42%            48%
+    #   latency p50         7,385 ms      4,829 ms
+    #   failing cases          4              1
+    #
+    # The mechanism is visible in the failures: expansion adds policy vocabulary
+    # that pulls the BM25 arm toward whichever document uses those words most,
+    # not toward the one that answers the question. On a corpus this small and
+    # this lexically uniform, BM25 already matches what it needs to, and the
+    # extra terms are noise with an LLM call attached. Kept behind a flag, not
+    # deleted: the argument for it is sound on a larger, more heterogeneous
+    # corpus, and the eval is how that would be settled there too.
+    enable_query_expansion: bool = False
     trace_full_prompt: bool = False
 
     # ------------------------------------------------------- derived paths ---

@@ -371,6 +371,29 @@ poison both arms at once. The call is cached by question hash, has a short timeo
 open** — on any error, expansion is skipped and retrieval proceeds with the raw query. It is an
 optimisation, never a dependency.
 
+> **Measured outcome: this argument was wrong for this corpus, and expansion now ships disabled.**
+> The eval (§f) compared the full suite with it on and off:
+>
+> | | expansion ON | expansion OFF |
+> |---|---|---|
+> | recall@5 | 80% | **100%** |
+> | answer correctness | 89% | **92%** |
+> | context precision | 42% | **48%** |
+> | latency p50 | 7,385 ms | **4,829 ms** |
+> | failing cases | 4 | **1** |
+>
+> It lost on every metric simultaneously, and cost ~2.5 s per query to do it. The mechanism is
+> visible in the failures: the added policy vocabulary pulls the BM25 arm toward whichever document
+> uses those words *most*, rather than the one that answers the question — `deferral-fee` and
+> `asd-no-placement` both drop out of the top-5 with expansion on. On a corpus this small and this
+> lexically uniform, BM25 already matches what it needs to, and the extra terms are noise with an
+> LLM call attached.
+>
+> The reasoning below still holds *as reasoning* — it is why the mechanism was worth building and
+> why it is kept behind `ENABLE_QUERY_EXPANSION` rather than deleted. It is left in place
+> deliberately: a design document that quietly rewrites its predictions after the fact teaches
+> nothing. This is what the eval is for.
+
 **Two things expansion must not touch, both found by measurement.**
 
 *It must not feed miss detection.* The sparse miss-condition asks whether the user's words appear
