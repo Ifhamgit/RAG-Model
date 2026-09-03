@@ -6,8 +6,7 @@
     python main.py --check-llm            verify the key and provider resolve
     python main.py --traces [N]           recent query traces
     python main.py --trace <id>           one trace in full
-
-Step 11 adds --serve.
+    python main.py --serve                HTTP API + browser UI on :8000
 """
 
 from __future__ import annotations
@@ -282,6 +281,18 @@ def _wrap(text: str, width: int) -> list[str]:
     return out
 
 
+def cmd_serve(args: argparse.Namespace) -> int:
+    import uvicorn
+
+    print(f"Serving on http://{args.host}:{args.port}")
+    print("  GET  /            query UI")
+    print("  POST /ask         {\"question\": \"...\"}")
+    print("  GET  /health      what actually loaded on this machine")
+    print("  GET  /traces      recent query traces")
+    uvicorn.run("rag.api:app", host=args.host, port=args.port, log_level="info")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="main.py",
@@ -311,6 +322,9 @@ def build_parser() -> argparse.ArgumentParser:
         help="list the N most recent query traces (default 20)",
     )
     p.add_argument("--trace", metavar="ID", help="print one trace in full")
+    p.add_argument("--serve", action="store_true", help="run the HTTP API and query UI")
+    p.add_argument("--host", default="127.0.0.1", help="with --serve (default 127.0.0.1)")
+    p.add_argument("--port", type=int, default=8000, help="with --serve (default 8000)")
     p.add_argument("-v", "--verbose", action="store_true", help="debug logging")
     return p
 
@@ -321,7 +335,7 @@ def main(argv: list[str] | None = None) -> int:
     _configure_logging(args.verbose)
 
     if not any([args.ingest, args.search, args.check_llm, args.query,
-                args.traces is not None, args.trace]):
+                args.traces is not None, args.trace, args.serve]):
         parser.print_help()
         return 1
 
@@ -332,6 +346,8 @@ def main(argv: list[str] | None = None) -> int:
             return cmd_ingest(args)
         if args.check_llm:
             return cmd_check_llm(args)
+        if args.serve:
+            return cmd_serve(args)
         if args.query:
             return cmd_query(args)
         if args.traces is not None:

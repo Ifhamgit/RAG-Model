@@ -29,6 +29,7 @@ import logging
 import pathlib
 import re
 import sqlite3
+import threading
 from typing import Any, Iterable, Optional, Sequence
 
 import numpy as np
@@ -150,19 +151,30 @@ class Store:
         self.vectors_path = pathlib.Path(vectors_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
 
-        self.conn = sqlite3.connect(self.db_path)
+        # check_same_thread=False because FastAPI runs sync endpoints in a
+        # worker threadpool: the connection is opened in the lifespan handler
+        # (main thread) and used from a different thread on every request.
+        # Python's sqlite3 is threadsafety level 1 — the module is thread-safe
+        # but a single connection is not — so every use is serialised by the
+        # lock below. At sub-millisecond query times that costs nothing, and it
+        # keeps the store a single shared object rather than one connection per
+        # request.
+        self.conn = sqlite3.connect(self.db_path, check_same_thread=False)
         self.conn.row_factory = sqlite3.Row
-        self.conn.execute("PRAGMA journal_mode=WAL")
-        self.conn.execute("PRAGMA foreign_keys=ON")
-        self.conn.executescript(SCHEMA)
-        self.conn.commit()
+        self._lock = threading.RLock()
+        with self._lock:
+            self.conn.execute("PRAGMA journal_mode=WAL")
+            self.conn.execute("PRAGMA foreign_keys=ON")
+            self.conn.executescript(SCHEMA)
+            self.conn.commit()
 
         self._matrix: Optional[np.ndarray] = None
         self._rows: Optional[list[str]] = None  # vector_row -> chunk_id
 
     # ------------------------------------------------------------------ io
     def close(self) -> None:
-        self.conn.close()
+        with self._lock:
+            self.conn.close()
 
     def __enter__(self) -> "Store":
         return self
@@ -173,10 +185,11 @@ class Store:
     def reset(self) -> None:
         """Drop all indexed content. Traces survive — they are the record of what
         the system did, and a rebuild is not a reason to lose it."""
-        self.conn.execute("DELETE FROM chunks")
-        self.conn.execute("INSERT INTO chunks_fts(chunks_fts) VALUES('rebuild')")
-        self.conn.execute("DELETE FROM meta")
-        self.conn.commit()
+        with self._lock:
+            self.conn.execute("DELETE FROM chunks")
+            self.conn.execute("INSERT INTO chunks_fts(chunks_fts) VALUES('rebuild')")
+            self.conn.execute("DELETE FROM meta")
+            self.conn.commit()
         self.vectors_path.unlink(missing_ok=True)
         self._matrix = None
         self._rows = None
@@ -200,7 +213,7 @@ class Store:
             )
             for i, c in enumerate(chunks)
         ]
-        with self.conn:
+        with self._lock, self.conn:
             self.conn.execute("DELETE FROM chunks")
             self.conn.executemany(
                 "INSERT INTO chunks (chunk_id, text, body, source_file, doc_title, doc_id,"
@@ -216,7 +229,7 @@ class Store:
         self._rows = [c.chunk_id for c in chunks]
 
     def set_meta(self, key: str, value: Any) -> None:
-        with self.conn:
+        with self._lock, self.conn:
             self.conn.execute(
                 "INSERT INTO meta(key, value) VALUES(?, ?) "
                 "ON CONFLICT(key) DO UPDATE SET value=excluded.value",
@@ -224,36 +237,43 @@ class Store:
             )
 
     def get_meta(self, key: str, default: Any = None) -> Any:
-        row = self.conn.execute("SELECT value FROM meta WHERE key=?", (key,)).fetchone()
+        with self._lock:
+            row = self.conn.execute("SELECT value FROM meta WHERE key=?", (key,)).fetchone()
         return default if row is None else json.loads(row["value"])
 
     def all_meta(self) -> dict[str, Any]:
-        return {r["key"]: json.loads(r["value"]) for r in self.conn.execute("SELECT * FROM meta")}
+        with self._lock:
+            return {r["key"]: json.loads(r["value"])
+                    for r in self.conn.execute("SELECT * FROM meta")}
 
     # --------------------------------------------------------------- reads
     def count(self) -> int:
-        return int(self.conn.execute("SELECT COUNT(*) AS n FROM chunks").fetchone()["n"])
+        with self._lock:
+            return int(self.conn.execute("SELECT COUNT(*) AS n FROM chunks").fetchone()["n"])
 
     def get_chunks(self, chunk_ids: Iterable[str]) -> dict[str, Chunk]:
         ids = list(chunk_ids)
         if not ids:
             return {}
         placeholders = ",".join("?" * len(ids))
-        rows = self.conn.execute(
-            f"SELECT * FROM chunks WHERE chunk_id IN ({placeholders})", ids
-        ).fetchall()
+        with self._lock:
+            rows = self.conn.execute(
+                f"SELECT * FROM chunks WHERE chunk_id IN ({placeholders})", ids
+            ).fetchall()
         return {r["chunk_id"]: _row_to_chunk(r) for r in rows}
 
     def all_chunks(self) -> list[Chunk]:
-        rows = self.conn.execute("SELECT * FROM chunks ORDER BY vector_row").fetchall()
+        with self._lock:
+            rows = self.conn.execute("SELECT * FROM chunks ORDER BY vector_row").fetchall()
         return [_row_to_chunk(r) for r in rows]
 
     def content_hashes(self) -> dict[str, str]:
         """chunk_id -> content_hash, for the ingest idempotency check."""
-        return {
-            r["chunk_id"]: r["content_hash"]
-            for r in self.conn.execute("SELECT chunk_id, content_hash FROM chunks")
-        }
+        with self._lock:
+            return {
+                r["chunk_id"]: r["content_hash"]
+                for r in self.conn.execute("SELECT chunk_id, content_hash FROM chunks")
+            }
 
     # ------------------------------------------------------------ dense arm
     def _load_matrix(self) -> tuple[np.ndarray, list[str]]:
@@ -264,9 +284,10 @@ class Store:
                     f"No vector index at {self.vectors_path}. Run `python main.py --ingest` first."
                 )
             self._matrix = np.load(self.vectors_path).astype(np.float32)
-            rows = self.conn.execute(
-                "SELECT chunk_id FROM chunks ORDER BY vector_row"
-            ).fetchall()
+            with self._lock:
+                rows = self.conn.execute(
+                    "SELECT chunk_id FROM chunks ORDER BY vector_row"
+                ).fetchall()
             self._rows = [r["chunk_id"] for r in rows]
             if len(self._rows) != self._matrix.shape[0]:
                 raise RuntimeError(
@@ -323,9 +344,10 @@ class Store:
             if not expr:
                 continue
             try:
-                row = self.conn.execute(
-                    "SELECT rowid FROM chunks_fts WHERE chunks_fts MATCH ? LIMIT 1", (expr,)
-                ).fetchone()
+                with self._lock:
+                    row = self.conn.execute(
+                        "SELECT rowid FROM chunks_fts WHERE chunks_fts MATCH ? LIMIT 1", (expr,)
+                    ).fetchone()
             except sqlite3.OperationalError:
                 continue
             if row is not None:
@@ -345,8 +367,9 @@ class Store:
         if not match:
             return []
         try:
-            rows = self.conn.execute(
-                "SELECT c.chunk_id AS chunk_id, bm25(chunks_fts) AS score "
+            with self._lock:
+                rows = self.conn.execute(
+                    "SELECT c.chunk_id AS chunk_id, bm25(chunks_fts) AS score "
                 "FROM chunks_fts JOIN chunks c ON c.rowid = chunks_fts.rowid "
                 "WHERE chunks_fts MATCH ? ORDER BY score LIMIT ?",
                 (match, k),
@@ -371,20 +394,24 @@ class Store:
                 payload[key] = json.dumps(value, default=str)
         cols = ",".join(payload)
         marks = ",".join("?" * len(payload))
-        with self.conn:
+        with self._lock, self.conn:
             self.conn.execute(
                 f"INSERT OR REPLACE INTO traces ({cols}) VALUES ({marks})",
                 tuple(payload.values()),
             )
 
     def recent_traces(self, limit: int = 20) -> list[dict[str, Any]]:
-        rows = self.conn.execute(
-            "SELECT * FROM traces ORDER BY timestamp_utc DESC LIMIT ?", (limit,)
-        ).fetchall()
+        with self._lock:
+            rows = self.conn.execute(
+                "SELECT * FROM traces ORDER BY timestamp_utc DESC LIMIT ?", (limit,)
+            ).fetchall()
         return [dict(r) for r in rows]
 
     def get_trace(self, trace_id: str) -> Optional[dict[str, Any]]:
-        row = self.conn.execute("SELECT * FROM traces WHERE trace_id=?", (trace_id,)).fetchone()
+        with self._lock:
+            row = self.conn.execute(
+                "SELECT * FROM traces WHERE trace_id=?", (trace_id,)
+            ).fetchone()
         return dict(row) if row else None
 
 
